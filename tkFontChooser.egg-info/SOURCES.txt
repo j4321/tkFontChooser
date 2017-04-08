@@ -1,6 +1,7 @@
 LICENSE.txt
 MANIFEST.in
 README.rst
+changelog
 setup.cfg
 setup.py
 tkFontChooser.py

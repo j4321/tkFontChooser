@@ -1,9 +1,3 @@
-"""A setuptools based setup module.
-See:
-https://packaging.python.org/en/latest/distributing.html
-https://github.com/pypa/sampleproject
-"""
-
 from setuptools import setup
 
 from codecs import open
@@ -16,10 +10,10 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='tkFontChooser',
-    version='1.0.0',
-    description='A simple font chooser for Tkinter',
+    version='1.0.1',
+    description='Simple font chooser for Tkinter',
     long_description=long_description,
-    url='https://pypi.python.org/pypi/tkFontChooser',
+    url='https://github.com/j4321/tkFontChooser',
     author='Juliette Monsel',
     author_email='j_4321@protonmail.com',
     license='GPLv3',
@@ -39,7 +33,6 @@ setup(
         'Natural Language :: French',
         'Operating System :: OS Independent',
     ],
-
     keywords=['tkinter', 'font', 'fontchooser'],
     py_modules=["tkFontChooser"],
 
