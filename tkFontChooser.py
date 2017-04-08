@@ -67,8 +67,6 @@ class FontChooser(Toplevel):
         """
         Toplevel.__init__(self, master, **kwargs)
         self.title("Font Chooser")
-        self.lift()
-        self.grab_set()
         self.resizable(False, False)
         self.protocol("WM_DELETE_WINDOW", self.quit)
         self._validate_family = self.register(self.validate_font_family)
@@ -209,17 +207,24 @@ class FontChooser(Toplevel):
         # bind Ctrl+A to select all instead of go to beginning
         self.bind_class("TEntry", "<Control-a>", self.select_all)
 
+        self.update_idletasks()
+        self.grab_set()
+        self.entry_family.focus_set()
+        self.lift()
+
+
     def select_all(self, event):
         event.widget.selection_range(0, "end")
 
     def keypress(self, event):
         key = event.char.lower()
-        print(key)
         l = [i for i in self.fonts if i[0].lower() == key]
         if l:
             i = self.fonts.index(l[0])
+            self.list_family.selection_clear(0, "end")
             self.list_family.selection_set(i)
             self.list_family.see(i)
+            self.update_entry_family()
 
     def up_family(self, event):
         try:
@@ -398,7 +403,7 @@ class FontChooser(Toplevel):
             else:
                 return False
 
-    def update_entry_family(self, event):
+    def update_entry_family(self, event=None):
         #  family = self.list_family.get("@%i,%i" % (event.x , event.y))
         family = self.list_family.get(self.list_family.curselection()[0])
         self.entry_family.delete(0, "end")

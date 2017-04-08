@@ -3,14 +3,15 @@ tkFontChooser - Font chooser for Tkinter
 Copyright 2016-2017 Juliette Monsel <j_4321@protonmail.com>
 
 
-- tkFontChooser 1.0.1
+- tkFontChooser 1.0.2
+    * Entry content is updated when font is selected by keypress navigation
 
+- tkFontChooser 1.0.1
     * Improved navigation with keyboard
     * Bound Ctrl+A to "select all" instead of "go to beginning"
     * Made .deb package
 
 - tkFontChooser 1.0.0
-
     * Initial version
 
 
