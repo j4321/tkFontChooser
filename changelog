@@ -5,6 +5,10 @@ Copyright 2016-2017 Juliette Monsel <j_4321@protonmail.com>
 Changelog
 ---------
 
+- tkFontChooser 1.0.3
+    * Close #1: Example in README.rst doesn't work 
+    * Added title option in FontChooser and askfont
+
 - tkFontChooser 1.0.2
     * Entry content is updated when font is selected by keypress navigation
 

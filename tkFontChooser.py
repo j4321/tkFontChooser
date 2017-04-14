@@ -30,14 +30,15 @@ except ImportError:
 
 from locale import getdefaultlocale
 
-lang = getdefaultlocale()[0][:2]
+__version__ = "1.0.3"
 
 EN = {"Cancel": "Cancel", "Bold": "Bold", "Italic": "Italic",
       "Underline": "Underline", "Overstrike": "Strikethrough"}
 FR = {"Cancel": "Annuler", "Bold": "Gras", "Italic": "Italique",
       "Underline": "Souligné", "Overstrike": "Barré"}
 LANGUAGES = {"fr": FR, "en": EN}
-if lang == "fr":
+
+if getdefaultlocale()[0][:2] == "fr":
     TR = LANGUAGES["fr"]
 else:
     TR = LANGUAGES["en"]
@@ -46,7 +47,8 @@ else:
 class FontChooser(Toplevel):
     """ Font chooser toplevel """
 
-    def __init__(self, master, font_dict={}, text="Abcd", **kwargs):
+    def __init__(self, master, font_dict={}, text="Abcd", title="Font Chooser",
+                 **kwargs):
         """
             Create a new FontChooser instance.
 
@@ -62,11 +64,13 @@ class FontChooser(Toplevel):
 
             text: text to be displayed in the preview label
 
+            title: window title
+
             **kwargs: additional keyword arguments to be passed to
                       Toplevel.__init__
         """
         Toplevel.__init__(self, master, **kwargs)
-        self.title("Font Chooser")
+        self.title(title)
         self.resizable(False, False)
         self.protocol("WM_DELETE_WINDOW", self.quit)
         self._validate_family = self.register(self.validate_font_family)
@@ -315,7 +319,6 @@ class FontChooser(Toplevel):
         self.preview_font.configure(overstrike=b)
 
     def change_font_family(self, event=None):
-#        family = self.var_family.get()
         family = self.entry_family.get()
         if family.replace(" ", "\ ") in self.fonts:
             self.preview_font.configure(family=family)
@@ -341,28 +344,6 @@ class FontChooser(Toplevel):
             return ch.isdigit()
         else:
             return True
-
-#    def validate_font_family(self, ch, V):
-#        ''' Validation of the family entry content '''
-#        ch = ch.replace(" ", "\ ")
-#        l = [i for i in self.fonts if i[:len(ch)] == ch]
-#        if not l:
-#            return False
-#        else:
-#            i = self.fonts.index(l[0])
-#            self.list_family.selection_clear(0, "end")
-#            self.list_family.selection_set(i)
-#            deb = self.list_family.nearest(0)
-#            fin = self.list_family.nearest(self.list_family.winfo_height())
-#            index = self.entry_family.index("insert")
-#            self.entry_family.delete(0, "end")
-#            self.entry_family.insert(0, l[0].replace("\ ", " "))
-#            self.entry_family.icursor(index)
-#            if V != "forced":
-#                if i < deb or i > fin:
-#                    self.list_family.see(i)
-#                return True
-#
 
     def tab(self, event):
         self.entry_family = event.widget
@@ -429,13 +410,13 @@ class FontChooser(Toplevel):
         self.destroy()
 
 
-def askfont(master=None, text="Abcd", **font_args):
+def askfont(master=None, text="Abcd", title="Font Chooser", **font_args):
     """ Open the font chooser and return the chosen font.
         text: sample text to be displayed in the font chooser
         font_args: family, size, slant (=roman/italic),
                    weight (=normal/bold), underline (bool), overstrike (bool)
     """
-    chooser = FontChooser(master, font_args, text)
+    chooser = FontChooser(master, font_args, text, title)
     chooser.wait_window(chooser)
     return chooser.get_res()
 
@@ -462,7 +443,7 @@ if __name__ == "__main__":
     label.pack(padx=10, pady=(10, 4))
 
     def callback():
-        font = askfont(root)
+        font = askfont(root, title="Choose a font")
         if font:
             # spaces in the family name need to be escaped
             font['family'] = font['family'].replace(' ', '\ ')

@@ -10,7 +10,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='tkFontChooser',
-    version='1.0.2',
+    version='1.0.3',
     description='Simple font chooser for Tkinter',
     long_description=long_description,
     url='https://github.com/j4321/tkFontChooser',
