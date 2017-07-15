@@ -1,4 +1,3 @@
-#! /usr/bin/python3
 # -*- coding: utf-8 -*-
 """
 tkFontChooser - Font chooser for Tkinter
@@ -32,6 +31,7 @@ from locale import getdefaultlocale
 
 __version__ = "1.0.3"
 
+# --- translation
 EN = {"Cancel": "Cancel", "Bold": "Bold", "Italic": "Italic",
       "Underline": "Underline", "Overstrike": "Strikethrough"}
 FR = {"Cancel": "Annuler", "Bold": "Gras", "Italic": "Italique",
@@ -44,30 +44,31 @@ else:
     TR = LANGUAGES["en"]
 
 
+# --- FontChooser class
 class FontChooser(Toplevel):
-    """ Font chooser toplevel """
+    """.Font chooser dialog."""
 
     def __init__(self, master, font_dict={}, text="Abcd", title="Font Chooser",
                  **kwargs):
         """
-            Create a new FontChooser instance.
+        Create a new FontChooser instance.
 
-            font: dictionnary, like the one returned by the .actual
-                  method of a Font object
+        font: dictionnary, like the one returned by the .actual
+              method of a Font object
 
-                    {'family': 'DejaVu Sans',
-                     'overstrike':False,
-                     'size': 12,
-                     'slant': 'italic' or 'roman',
-                     'underline': False,
-                     'weight': 'bold' or 'normal'}
+                {'family': 'DejaVu Sans',
+                 'overstrike':False,
+                 'size': 12,
+                 'slant': 'italic' or 'roman',
+                 'underline': False,
+                 'weight': 'bold' or 'normal'}
 
-            text: text to be displayed in the preview label
+        text: text to be displayed in the preview label
 
-            title: window title
+        title: window title
 
-            **kwargs: additional keyword arguments to be passed to
-                      Toplevel.__init__
+        **kwargs: additional keyword arguments to be passed to
+                  Toplevel.__init__
         """
         Toplevel.__init__(self, master, **kwargs)
         self.title(title)
@@ -76,7 +77,7 @@ class FontChooser(Toplevel):
         self._validate_family = self.register(self.validate_font_family)
         self._validate_size = self.register(self.validate_font_size)
 
-        # variable storing the chosen font
+        # --- variable storing the chosen font
         self.res = ""
 
         style = Style(self)
@@ -84,15 +85,15 @@ class FontChooser(Toplevel):
         bg = style.lookup("TLabel", "background")
         self.configure(bg=bg)
 
-        # family list
+        # --- family list
         self.fonts = list(set(families()))
         self.fonts.append("TkDefaultFont")
         self.fonts.sort()
         for i in range(len(self.fonts)):
             self.fonts[i] = self.fonts[i].replace(" ", "\ ")
-        max_length = int(2.5*max([len(font) for font in self.fonts]))//3
+        max_length = int(2.5 * max([len(font) for font in self.fonts])) // 3
         self.sizes = ["%i" % i for i in (list(range(6, 17)) + list(range(18, 32, 2)))]
-        # font default
+        # --- font default
         font_dict["weight"] = font_dict.get("weight", "normal")
         font_dict["slant"] = font_dict.get("slant", "roman")
         font_dict["underline"] = font_dict.get("underline", False)
@@ -101,7 +102,8 @@ class FontChooser(Toplevel):
                                             self.fonts[0].replace('\ ', ' '))
         font_dict["size"] = font_dict.get("size", 10)
 
-        # Widgets creation
+        # --- creation of the widgets
+        # ------ style parameters (bold, italic ...)
         options_frame = Frame(self, relief='groove', borderwidth=2)
         self.font_family = StringVar(self, " ".join(self.fonts))
         self.font_size = StringVar(self, " ".join(self.sizes))
@@ -125,6 +127,7 @@ class FontChooser(Toplevel):
                                    variable=self.var_overstrike,
                                    command=self.toggle_overstrike)
         b_overstrike.grid(row=3, sticky="w", padx=4, pady=(2, 4))
+        # ------ Size and family
         self.var_size = StringVar(self)
         self.entry_family = Entry(self, width=max_length, validate="key",
                                   validatecommand=(self._validate_family, "%d", "%S",
@@ -153,7 +156,7 @@ class FontChooser(Toplevel):
                              text=text, font=self.preview_font,
                              anchor="center")
 
-        # Widget configuration
+        # --- widget configuration
         self.list_family.configure(yscrollcommand=scroll_family.set)
         self.list_size.configure(yscrollcommand=scroll_size.set)
 
@@ -211,16 +214,17 @@ class FontChooser(Toplevel):
         # bind Ctrl+A to select all instead of go to beginning
         self.bind_class("TEntry", "<Control-a>", self.select_all)
 
-        self.update_idletasks()
+        self.wait_visibility(self)
         self.grab_set()
         self.entry_family.focus_set()
         self.lift()
 
-
     def select_all(self, event):
+        """Select all entry content."""
         event.widget.selection_range(0, "end")
 
     def keypress(self, event):
+        """Select the first font whose name begin by the key pressed."""
         key = event.char.lower()
         l = [i for i in self.fonts if i[0].lower() == key]
         if l:
@@ -231,6 +235,7 @@ class FontChooser(Toplevel):
             self.update_entry_family()
 
     def up_family(self, event):
+        """Navigate in the family listbox with up key."""
         try:
             txt = self.entry_family.get().replace(" ", "\ ")
             l = [i for i in self.fonts if i[:len(txt)] == txt]
@@ -252,6 +257,7 @@ class FontChooser(Toplevel):
         self.list_family.event_generate('<<ListboxSelect>>')
 
     def up_size(self, event):
+        """Navigate in the size listbox with up key."""
         try:
             s = self.var_size.get()
             i = self.sizes.index(s)
@@ -264,12 +270,13 @@ class FontChooser(Toplevel):
                 self.list_size.see(i - 1)
                 self.list_size.select_set(i - 1)
         except TclError:
-            i  = len(self.sizes)
+            i = len(self.sizes)
             self.list_size.see(i - 1)
             self.list_size.select_set(i - 1)
         self.list_size.event_generate('<<ListboxSelect>>')
 
     def down_family(self, event):
+        """Navigate in the family listbox with down key."""
         try:
             txt = self.entry_family.get().replace(" ", "\ ")
             l = [i for i in self.fonts if i[:len(txt)] == txt]
@@ -288,6 +295,7 @@ class FontChooser(Toplevel):
         self.list_family.event_generate('<<ListboxSelect>>')
 
     def down_size(self, event):
+        """Navigate in the size listbox with down key."""
         try:
             s = self.var_size.get()
             i = self.sizes.index(s)
@@ -303,32 +311,38 @@ class FontChooser(Toplevel):
         self.list_size.event_generate('<<ListboxSelect>>')
 
     def toggle_bold(self):
+        """Update font preview weight."""
         b = self.var_bold.get()
         self.preview_font.configure(weight=["normal", "bold"][b])
 
     def toggle_italic(self):
+        """Update font preview slant."""
         b = self.var_italic.get()
         self.preview_font.configure(slant=["roman", "italic"][b])
 
     def toggle_underline(self):
+        """Update font preview underline."""
         b = self.var_underline.get()
         self.preview_font.configure(underline=b)
 
     def toggle_overstrike(self):
+        """Update font preview overstrike."""
         b = self.var_overstrike.get()
         self.preview_font.configure(overstrike=b)
 
     def change_font_family(self, event=None):
+        """Update font preview family."""
         family = self.entry_family.get()
         if family.replace(" ", "\ ") in self.fonts:
             self.preview_font.configure(family=family)
 
     def change_font_size(self, event=None):
+        """Update font preview size."""
         size = int(self.var_size.get())
         self.preview_font.configure(size=size)
 
     def validate_font_size(self, d, ch, V):
-        ''' Validation of the size entry content '''
+        '''Validation of the size entry content.'''
         l = [i for i in self.sizes if i[:len(ch)] == ch]
         if l:
             i = self.sizes.index(l[0])
@@ -346,21 +360,21 @@ class FontChooser(Toplevel):
             return True
 
     def tab(self, event):
+        """Move at the end of selected text on tab press."""
         self.entry_family = event.widget
         self.entry_family.selection_clear()
         self.entry_family.icursor("end")
         return "break"
 
     def validate_font_family(self, action, modif, pos, prev_txt, V):
-        """ completion of the text in the path entry with existing
-            folder/file names """
+        """Completion of the text in the path entry with existing font names."""
         if self.entry_family.selection_present():
             sel = self.entry_family.selection_get()
             txt = prev_txt.replace(sel, '')
         else:
             txt = prev_txt
         if action == "0":
-            txt = txt[:int(pos)] + txt[int(pos)+1:]
+            txt = txt[:int(pos)] + txt[int(pos) + 1:]
             return True
         else:
             txt = txt[:int(pos)] + modif + txt[int(pos):]
@@ -385,6 +399,7 @@ class FontChooser(Toplevel):
                 return False
 
     def update_entry_family(self, event=None):
+        """Update family entry when an item is selected in the family listbox."""
         #  family = self.list_family.get("@%i,%i" % (event.x , event.y))
         family = self.list_family.get(self.list_family.curselection()[0])
         self.entry_family.delete(0, "end")
@@ -394,16 +409,19 @@ class FontChooser(Toplevel):
         self.change_font_family()
 
     def update_entry_size(self, event):
+        """Update size entry when an item is selected in the size listbox."""
         #  size = self.list_size.get("@%i,%i" % (event.x , event.y))
         size = self.list_size.get(self.list_size.curselection()[0])
         self.var_size.set(size)
         self.change_font_size()
 
     def ok(self):
+        """Validate choice."""
         self.res = self.preview_font.actual()
         self.quit()
 
     def get_res(self):
+        """Return chosen font."""
         return self.res
 
     def quit(self):
@@ -422,7 +440,7 @@ def askfont(master=None, text="Abcd", title="Font Chooser", **font_args):
 
 
 if __name__ == "__main__":
-    ''' Minimal example '''
+    ''' Example '''
     try:
         from tkinter import Tk
     except ImportError:
