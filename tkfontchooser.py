@@ -53,22 +53,25 @@ class FontChooser(Toplevel):
         """
         Create a new FontChooser instance.
 
-        font: dictionnary, like the one returned by the .actual
-              method of a Font object
+        Arguments:
+            master: master window
 
-                {'family': 'DejaVu Sans',
-                 'overstrike':False,
-                 'size': 12,
-                 'slant': 'italic' or 'roman',
-                 'underline': False,
-                 'weight': 'bold' or 'normal'}
+            font_dict: dictionnary, like the one returned by the .actual
+                       method of a Font object:
 
-        text: text to be displayed in the preview label
+                        {'family': 'DejaVu Sans',
+                         'overstrike':False,
+                         'size': 12,
+                         'slant': 'italic' or 'roman',
+                         'underline': False,
+                         'weight': 'bold' or 'normal'}
 
-        title: window title
+            text: text to be displayed in the preview label
 
-        **kwargs: additional keyword arguments to be passed to
-                  Toplevel.__init__
+            title: window title
+
+            **kwargs: additional keyword arguments to be passed to
+                      Toplevel.__init__
         """
         Toplevel.__init__(self, master, **kwargs)
         self.title(title)
@@ -342,7 +345,7 @@ class FontChooser(Toplevel):
         self.preview_font.configure(size=size)
 
     def validate_font_size(self, d, ch, V):
-        '''Validation of the size entry content.'''
+        """Validation of the size entry content."""
         l = [i for i in self.sizes if i[:len(ch)] == ch]
         if l:
             i = self.sizes.index(l[0])
@@ -367,7 +370,7 @@ class FontChooser(Toplevel):
         return "break"
 
     def validate_font_family(self, action, modif, pos, prev_txt, V):
-        """Completion of the text in the path entry with existing font names."""
+        """Completion of the text in the entry with existing font names."""
         if self.entry_family.selection_present():
             sel = self.entry_family.selection_get()
             txt = prev_txt.replace(sel, '')
@@ -429,8 +432,13 @@ class FontChooser(Toplevel):
 
 
 def askfont(master=None, text="Abcd", title="Font Chooser", **font_args):
-    """ Open the font chooser and return the chosen font.
+    """
+    Open the font chooser and return the chosen font.
+
+    Arguments:
+        master: master window
         text: sample text to be displayed in the font chooser
+        title: dialog title
         font_args: family, size, slant (=roman/italic),
                    weight (=normal/bold), underline (bool), overstrike (bool)
     """
@@ -440,7 +448,7 @@ def askfont(master=None, text="Abcd", title="Font Chooser", **font_args):
 
 
 if __name__ == "__main__":
-    ''' Example '''
+    """Example."""
     try:
         from tkinter import Tk
     except ImportError:

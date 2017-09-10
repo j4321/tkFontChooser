@@ -5,19 +5,22 @@ Copyright 2016-2017 Juliette Monsel <j_4321@protonmail.com>
 Changelog
 ---------
 
+- tkfontchooser 2.0.0
+    * Change module name to lowercase to respect PEP 8 naming guidelines
+
 - tkFontChooser 1.0.3
-    * Close #1: Example in README.rst doesn't work 
-    * Added title option in FontChooser and askfont
+    * Close #1: Example in README.rst doesn't work
+    * Add title option in FontChooser and askfont
 
 - tkFontChooser 1.0.2
     * Entry content is updated when font is selected by keypress navigation
 
 - tkFontChooser 1.0.1
-    * Improved navigation with keyboard
-    * Bound Ctrl+A to "select all" instead of "go to beginning"
-    * Made .deb package
+    * Improve navigation with keyboard
+    * Bind Ctrl+A to "select all" instead of "go to beginning"
 
 - tkFontChooser 1.0.0
     * Initial version
+
 
 
