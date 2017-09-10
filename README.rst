@@ -20,21 +20,26 @@ Requirements
 
 Installation
 ------------
+
 - Ubuntu: use the PPA `ppa:j-4321-i/ppa`
 
-::
+    ::
 
-    $ sudo add-apt-repository ppa:j-4321-i/ppa
-    $ sudo apt-get update
-    $ sudo apt-get install python(3)-tkfontchooser
+        $ sudo add-apt-repository ppa:j-4321-i/ppa
+        $ sudo apt-get update
+        $ sudo apt-get install python(3)-tkfontchooser
 
-- Archlinux: the package is available on `AUR <https://aur.archlinux.org/packages/python-tkfontchooser>`__
+
+- Archlinux: 
+
+    the package is available on `AUR <https://aur.archlinux.org/packages/python-tkfontchooser>`__
+
 
 - With pip:
 
-::
+    ::
 
-    $ pip install tkfontchooser
+        $ pip install tkfontchooser
 
 
 Example
