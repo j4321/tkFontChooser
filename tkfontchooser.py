@@ -168,14 +168,22 @@ class FontChooser(Toplevel):
         self.entry_family.icursor("end")
         entry_size.insert(0, font_dict["size"])
 
-        i = self.fonts.index(self.entry_family.get().replace(" ", "\ "))
+        try:
+            i = self.fonts.index(self.entry_family.get().replace(" ", "\ "))
+        except ValueError:
+            # unknown font
+            i = 0
         self.list_family.selection_clear(0, "end")
         self.list_family.selection_set(i)
         self.list_family.see(i)
-        i = self.sizes.index(entry_size.get())
-        self.list_size.selection_clear(0, "end")
-        self.list_size.selection_set(i)
-        self.list_size.see(i)
+        try:
+            i = self.sizes.index(entry_size.get())
+            self.list_size.selection_clear(0, "end")
+            self.list_size.selection_set(i)
+            self.list_size.see(i)
+        except ValueError:
+            # size not in list
+            pass
 
         self.entry_family.grid(row=0, column=0, sticky="ew",
                                pady=(10, 1), padx=(10, 0))
