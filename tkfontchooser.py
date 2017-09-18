@@ -29,7 +29,7 @@ except ImportError:
 
 from locale import getdefaultlocale
 
-__version__ = "1.0.3"
+__version__ = "2.0.2"
 
 # --- translation
 EN = {"Cancel": "Cancel", "Bold": "Bold", "Italic": "Italic",
@@ -60,7 +60,7 @@ class FontChooser(Toplevel):
                        method of a Font object:
 
                         {'family': 'DejaVu Sans',
-                         'overstrike':False,
+                         'overstrike': False,
                          'size': 12,
                          'slant': 'italic' or 'roman',
                          'underline': False,
@@ -135,9 +135,9 @@ class FontChooser(Toplevel):
         self.entry_family = Entry(self, width=max_length, validate="key",
                                   validatecommand=(self._validate_family, "%d", "%S",
                                                    "%i", "%s", "%V"))
-        entry_size = Entry(self, width=4, validate="key",
-                           textvariable=self.var_size,
-                           validatecommand=(self._validate_size, "%d", "%P", "%V"))
+        self.entry_size = Entry(self, width=4, validate="key",
+                                textvariable=self.var_size,
+                                validatecommand=(self._validate_size, "%d", "%P", "%V"))
         self.list_family = Listbox(self, selectmode="browse",
                                    listvariable=self.font_family,
                                    highlightthickness=0,
@@ -166,7 +166,7 @@ class FontChooser(Toplevel):
         self.entry_family.insert(0, font_dict["family"])
         self.entry_family.selection_clear()
         self.entry_family.icursor("end")
-        entry_size.insert(0, font_dict["size"])
+        self.entry_size.insert(0, font_dict["size"])
 
         try:
             i = self.fonts.index(self.entry_family.get().replace(" ", "\ "))
@@ -177,7 +177,7 @@ class FontChooser(Toplevel):
         self.list_family.selection_set(i)
         self.list_family.see(i)
         try:
-            i = self.sizes.index(entry_size.get())
+            i = self.sizes.index(self.entry_size.get())
             self.list_size.selection_clear(0, "end")
             self.list_size.selection_set(i)
             self.list_size.see(i)
@@ -187,8 +187,8 @@ class FontChooser(Toplevel):
 
         self.entry_family.grid(row=0, column=0, sticky="ew",
                                pady=(10, 1), padx=(10, 0))
-        entry_size.grid(row=0, column=2, sticky="ew",
-                        pady=(10, 1), padx=(10, 0))
+        self.entry_size.grid(row=0, column=2, sticky="ew",
+                             pady=(10, 1), padx=(10, 0))
         self.list_family.grid(row=1, column=0, sticky="nsew",
                               pady=(1, 10), padx=(10, 0))
         self.list_size.grid(row=1, column=2, sticky="nsew",
@@ -214,13 +214,13 @@ class FontChooser(Toplevel):
         self.list_family.bind("<KeyPress>", self.keypress)
         self.entry_family.bind("<Return>", self.change_font_family)
         self.entry_family.bind("<Tab>", self.tab)
-        entry_size.bind("<Return>", self.change_font_size)
+        self.entry_size.bind("<Return>", self.change_font_size)
 
         self.entry_family.bind("<Down>", self.down_family)
-        entry_size.bind("<Down>", self.down_size)
+        self.entry_size.bind("<Down>", self.down_size)
 
         self.entry_family.bind("<Up>", self.up_family)
-        entry_size.bind("<Up>", self.up_size)
+        self.entry_size.bind("<Up>", self.up_size)
 
         # bind Ctrl+A to select all instead of go to beginning
         self.bind_class("TEntry", "<Control-a>", self.select_all)
@@ -248,20 +248,14 @@ class FontChooser(Toplevel):
     def up_family(self, event):
         """Navigate in the family listbox with up key."""
         try:
-            txt = self.entry_family.get().replace(" ", "\ ")
-            l = [i for i in self.fonts if i[:len(txt)] == txt]
-            if l:
-                self.list_family.selection_clear(0, "end")
-                i = self.fonts.index(l[0])
-                if i > 0:
-                    self.list_family.selection_set(i - 1)
-                    self.list_family.see(i - 1)
-                else:
-                    i = len(self.fonts)
-                    self.list_family.see(i - 1)
-                    self.list_family.select_set(i - 1)
-
+            i = self.list_family.curselection()[0]
+            self.list_family.selection_clear(0, "end")
+            if i <= 0:
+                i = len(self.fonts)
+            self.list_family.see(i - 1)
+            self.list_family.select_set(i - 1)
         except TclError:
+            self.list_family.selection_clear(0, "end")
             i = len(self.fonts)
             self.list_family.see(i - 1)
             self.list_family.select_set(i - 1)
@@ -271,15 +265,20 @@ class FontChooser(Toplevel):
         """Navigate in the size listbox with up key."""
         try:
             s = self.var_size.get()
-            i = self.sizes.index(s)
-            self.list_size.selection_clear(0, "end")
-            if i > 0:
-                self.list_size.selection_set(i - 1)
-                self.list_size.see(i - 1)
+            if s in self.sizes:
+                i = self.sizes.index(s)
+            elif s:
+                sizes = self.sizes.copy()
+                sizes.append(s)
+                sizes.sort(key=lambda x: int(x))
+                i = sizes.index(s)
             else:
+                i = 0
+            self.list_size.selection_clear(0, "end")
+            if i <= 0:
                 i = len(self.sizes)
-                self.list_size.see(i - 1)
-                self.list_size.select_set(i - 1)
+            self.list_size.see(i - 1)
+            self.list_size.select_set(i - 1)
         except TclError:
             i = len(self.sizes)
             self.list_size.see(i - 1)
@@ -289,27 +288,31 @@ class FontChooser(Toplevel):
     def down_family(self, event):
         """Navigate in the family listbox with down key."""
         try:
-            txt = self.entry_family.get().replace(" ", "\ ")
-            l = [i for i in self.fonts if i[:len(txt)] == txt]
-            if l:
-                self.list_family.selection_clear(0, "end")
-                i = self.fonts.index(l[0])
-                if i < len(self.fonts) - 1:
-                    self.list_family.selection_set(i + 1)
-                    self.list_family.see(i + 1)
-                else:
-                    self.list_family.see(0)
-                    self.list_family.select_set(0)
-
+            i = self.list_family.curselection()[0]
+            self.list_family.selection_clear(0, "end")
+            if i >= len(self.fonts):
+                i = -1
+            self.list_family.see(i + 1)
+            self.list_family.select_set(i + 1)
         except TclError:
-            self.list_family.selection_set(0)
+            self.list_family.selection_clear(0, "end")
+            self.list_family.see(0)
+            self.list_family.select_set(0)
         self.list_family.event_generate('<<ListboxSelect>>')
 
     def down_size(self, event):
         """Navigate in the size listbox with down key."""
         try:
             s = self.var_size.get()
-            i = self.sizes.index(s)
+            if s in self.sizes:
+                i = self.sizes.index(s)
+            elif s:
+                sizes = self.sizes.copy()
+                sizes.append(s)
+                sizes.sort(key=lambda x: int(x))
+                i = sizes.index(s) - 1
+            else:
+                s = len(self.sizes) - 1
             self.list_size.selection_clear(0, "end")
             if i < len(self.sizes) - 1:
                 self.list_size.selection_set(i + 1)
@@ -355,8 +358,15 @@ class FontChooser(Toplevel):
     def validate_font_size(self, d, ch, V):
         """Validation of the size entry content."""
         l = [i for i in self.sizes if i[:len(ch)] == ch]
+        i = None
         if l:
             i = self.sizes.index(l[0])
+        elif ch.isdigit():
+            sizes = self.sizes.copy()
+            sizes.append(ch)
+            sizes.sort(key=lambda x: int(x))
+            i = min(sizes.index(ch), len(self.sizes))
+        if i is not None:
             self.list_size.selection_clear(0, "end")
             self.list_size.selection_set(i)
             deb = self.list_size.nearest(0)
