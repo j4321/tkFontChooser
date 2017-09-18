@@ -24,9 +24,11 @@ from tkfontchooser import FontChooser
 try:
     import Tkinter as tk
     import ttk
+    import tkFont
 except ImportError:
     import tkinter as tk
     from tkinter import ttk
+    from tkinter import font as tkFont
 import logging
 
 
@@ -61,8 +63,9 @@ class TestFontChooser(BaseWidgetTest):
         self.window.update()
 
     def test_fontchooser_methods(self):
+        font = tkFont.families()[-1]
         fc = FontChooser(self.window,
-                         {'family': 'Arial', 'weight': 'bold', 'size': 27,
+                         {'family': font, 'weight': 'bold', 'size': 27,
                           'slant': 'italic'})
         self.window.update()
 
@@ -75,7 +78,7 @@ class TestFontChooser(BaseWidgetTest):
         fc.ok()
         self.window.update()
         self.assertEqual(fc.get_res(),
-                         {'family': 'Arial',
+                         {'family': font,
                           'overstrike': 0,
                           'size': 27,
                           'slant': 'italic',
