@@ -268,7 +268,7 @@ class FontChooser(Toplevel):
             if s in self.sizes:
                 i = self.sizes.index(s)
             elif s:
-                sizes = self.sizes.copy()
+                sizes = list(self.sizes)
                 sizes.append(s)
                 sizes.sort(key=lambda x: int(x))
                 i = sizes.index(s)
@@ -307,7 +307,7 @@ class FontChooser(Toplevel):
             if s in self.sizes:
                 i = self.sizes.index(s)
             elif s:
-                sizes = self.sizes.copy()
+                sizes = list(self.sizes)
                 sizes.append(s)
                 sizes.sort(key=lambda x: int(x))
                 i = sizes.index(s) - 1
@@ -362,7 +362,7 @@ class FontChooser(Toplevel):
         if l:
             i = self.sizes.index(l[0])
         elif ch.isdigit():
-            sizes = self.sizes.copy()
+            sizes = list(self.sizes)
             sizes.append(ch)
             sizes.sort(key=lambda x: int(x))
             i = min(sizes.index(ch), len(self.sizes))
