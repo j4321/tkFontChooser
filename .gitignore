@@ -6,3 +6,4 @@ python-tkfontchooser
 *.egg-info
 htmlcov
 .coverage
+*.pyc
