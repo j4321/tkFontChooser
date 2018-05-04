@@ -36,10 +36,14 @@ EN = {"Cancel": "Cancel", "Bold": "Bold", "Italic": "Italic",
       "Underline": "Underline", "Overstrike": "Strikethrough"}
 FR = {"Cancel": "Annuler", "Bold": "Gras", "Italic": "Italique",
       "Underline": "Souligné", "Overstrike": "Barré"}
-LANGUAGES = {"fr": FR, "en": EN}
+IT = {"Cancel": "Annulla", "Bold": "Grassetto", "Italic": "Corsivo",
+      "Underline": "Sottolineato", "Overstrike": "Barrato"}
+LANGUAGES = {"fr": FR, "en": EN, "it": IT}
 
 if getdefaultlocale()[0][:2] == "fr":
     TR = LANGUAGES["fr"]
+elif getdefaultlocale()[0][:2] == "it":
+    TR = LANGUAGES["it"]
 else:
     TR = LANGUAGES["en"]
 
