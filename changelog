@@ -1,9 +1,12 @@
 tkFontChooser - Font chooser for Tkinter
 ========================================
-Copyright 2016-2017 Juliette Monsel <j_4321@protonmail.com>
+Copyright 2016-2018 Juliette Monsel <j_4321@protonmail.com>
 
 Changelog
 ---------
+
+- tkfontchooser 2.0.2
+    * Add Italian translation (thanks to Maicol)
 
 - tkfontchooser 2.0.1
     * Fix bug when font size not in list (when navigating with up/down arrows)

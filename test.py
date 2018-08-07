@@ -63,10 +63,9 @@ class TestFontChooser(BaseWidgetTest):
         self.window.update()
 
     def test_fontchooser_methods(self):
-        font = tkFont.families()[-1]
-        fc = FontChooser(self.window,
-                         {'family': font, 'weight': 'bold', 'size': 27,
-                          'slant': 'italic'})
+        props = {'family': "TkDefaultFont", 'weight': 'bold', 'size': 27,
+                 'slant': 'italic'}
+        fc = FontChooser(self.window, props)
         self.window.update()
 
         e = ttk.Entry(self.window)
@@ -77,13 +76,8 @@ class TestFontChooser(BaseWidgetTest):
         self.assertEqual(fc.get_res(), "")
         fc.ok()
         self.window.update()
-        self.assertEqual(fc.get_res(),
-                         {'family': font,
-                          'overstrike': 0,
-                          'size': 27,
-                          'slant': 'italic',
-                          'underline': 0,
-                          'weight': 'bold'})
+        font = tkFont.Font(self.window, **props)
+        self.assertEqual(fc.get_res(), font.actual())
         # ok() destroys the toplevel
         fc = FontChooser(self.window, {'family': "TkDefaultFont", "size": 20})
         self.window.update()
