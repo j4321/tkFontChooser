@@ -1,7 +1,7 @@
 tkFontChooser
 =============
 
-|Release| |Windows| |Linux| |Mac| |License|
+|Release| |Travis| |Appveyor| |Codecov| |Windows| |Linux| |Mac| |License|
 
 A simple font chooser for Tkinter that allow the user to select the font
 family among the fonts available on his/her system. The size and style
