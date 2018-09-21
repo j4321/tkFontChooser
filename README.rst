@@ -1,6 +1,8 @@
 tkFontChooser
 =============
 
+|Release| |Windows| |Linux| |Mac| |License|
+
 A simple font chooser for Tkinter that allow the user to select the font
 family among the fonts available on his/her system. The size and style
 (bold, italic, underline, strikethrough) of the text can be set too.
@@ -86,3 +88,26 @@ Example
 
     Button(root, text='Font Chooser', command=callback).pack(padx=10, pady=(4,10))
     root.mainloop()
+
+
+.. |Release| image:: https://badge.fury.io/py/tkfontchooser.svg
+    :alt: Latest Release
+.. _Release:  https://pypi.org/project/tkfontchooser/
+.. |Linux| image:: https://img.shields.io/badge/platform-Linux-blue.svg
+    :alt: Platform
+.. |Windows| image:: https://img.shields.io/badge/platform-Windows-blue.svg
+    :alt: Platform
+.. |Mac| image:: https://img.shields.io/badge/platform-Mac-blue.svg
+    :alt: Platform
+.. |Travis| image:: https://travis-ci.org/j4321/tkFontChooser.svg?branch=master
+    :target: https://travis-ci.org/j4321/tkFontChooser
+    :alt: Travis CI Build Status
+.. |Appveyor|:: https://ci.appveyor.com/api/projects/status/ydgaxicd3at93gx6?svg=true
+    :target: https://ci.appveyor.com/project/j4321/tkFontChooser/branch/master
+    :alt: Appveyor Build Status
+.. |Codecov| image:: https://codecov.io/gh/j4321/tkFontChooser/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/j4321/tkFontChooser
+    :alt: Code coverage
+.. |License| image:: https://img.shields.io/github/license/j4321/tkFontChooser.svg
+    :target: https://www.gnu.org/licenses/gpl-3.0.en.html
+    :alt: License
