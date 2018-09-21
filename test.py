@@ -83,6 +83,30 @@ class TestFontChooser(BaseWidgetTest):
         self.window.update()
         i = fc.list_family.curselection()[0]
         self.assertEqual(fc.fonts[i], "TkDefaultFont")
+
+        self.assertEqual(fc.preview_font.actual()['weight'], "normal")
+        fc.var_bold.set(True)
+        fc.toggle_bold()
+        self.window.update()
+        self.assertEqual(fc.preview_font.actual()['weight'], "bold")
+
+        self.assertEqual(fc.preview_font.actual()['slant'], "roman")
+        fc.var_italic.set(True)
+        fc.toggle_italic()
+        self.window.update()
+        self.assertEqual(fc.preview_font.actual()['slant'], "italic")
+
+        self.assertEqual(fc.preview_font.actual()['underline'], False)
+        fc.var_underline.set(True)
+        fc.toggle_underline()
+        self.window.update()
+        self.assertEqual(fc.preview_font.actual()['underline'], True)
+
+        self.assertEqual(fc.preview_font.actual()['overstrike'], False)
+        fc.var_overstrike.set(True)
+        fc.toggle_overstrike()
+        self.window.update()
+        self.assertEqual(fc.preview_font.actual()['overstrike'], True)
         fc.up_family(None)
         self.window.update()
         self.assertEqual(fc.list_family.curselection()[0], i - 1)
@@ -116,28 +140,3 @@ class TestFontChooser(BaseWidgetTest):
 
         fc.keypress(TestEvent(char=fc.fonts[0][0]))
         self.assertEqual(fc.list_family.curselection()[0], 0)
-
-        self.assertEqual(fc.preview_font.actual()['weight'], "normal")
-        fc.var_bold.set(True)
-        fc.toggle_bold()
-        self.window.update()
-        self.assertEqual(fc.preview_font.actual()['weight'], "bold")
-
-        self.assertEqual(fc.preview_font.actual()['slant'], "roman")
-        fc.var_italic.set(True)
-        fc.toggle_italic()
-        self.window.update()
-        print(fc.preview_font.actual())
-        self.assertEqual(fc.preview_font.actual()['slant'], "italic")
-
-        self.assertEqual(fc.preview_font.actual()['underline'], False)
-        fc.var_underline.set(True)
-        fc.toggle_underline()
-        self.window.update()
-        self.assertEqual(fc.preview_font.actual()['underline'], True)
-
-        self.assertEqual(fc.preview_font.actual()['overstrike'], False)
-        fc.var_overstrike.set(True)
-        fc.toggle_overstrike()
-        self.window.update()
-        self.assertEqual(fc.preview_font.actual()['overstrike'], True)
