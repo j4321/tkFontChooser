@@ -102,7 +102,7 @@ Example
 .. |Travis| image:: https://travis-ci.org/j4321/tkFontChooser.svg?branch=master
     :target: https://travis-ci.org/j4321/tkFontChooser
     :alt: Travis CI Build Status
-.. |Appveyor|:: https://ci.appveyor.com/api/projects/status/ydgaxicd3at93gx6/branch/master?svg=true
+.. |Appveyor| image:: https://ci.appveyor.com/api/projects/status/ydgaxicd3at93gx6/branch/master?svg=true
     :target: https://ci.appveyor.com/project/j4321/tkfontchooser/branch/master
     :alt: Appveyor Build Status
 .. |Codecov| image:: https://codecov.io/gh/j4321/tkFontChooser/branch/master/graph/badge.svg
