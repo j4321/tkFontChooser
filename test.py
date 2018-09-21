@@ -127,6 +127,7 @@ class TestFontChooser(BaseWidgetTest):
         fc.var_italic.set(True)
         fc.toggle_italic()
         self.window.update()
+        print(fc.preview_font.actual())
         self.assertEqual(fc.preview_font.actual()['slant'], "italic")
 
         self.assertEqual(fc.preview_font.actual()['underline'], False)
