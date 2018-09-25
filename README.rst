@@ -7,11 +7,11 @@ A simple font chooser for Tkinter that allow the user to select the font
 family among the fonts available on his/her system. The size and style
 (bold, italic, underline, strikethrough) of the text can be set too.
 
-This module contains a `FontChooser` class which implements the font
-chooser and an `askfont` function that displays the font chooser and
+This module contains a ``FontChooser`` class which implements the font
+chooser and an ``askfont`` function that displays the font chooser and
 returns the chosen font when the user closes the font chooser. The font
 is returned as a dictionary like the one returned by the function
-`tkFont.Font.actual`.
+``tkFont.Font.actual``.
 
 Requirements
 ------------
@@ -32,7 +32,7 @@ Installation
         $ sudo apt-get install python(3)-tkfontchooser
 
 
-- Archlinux: 
+- Archlinux:
 
     the package is available on `AUR <https://aur.archlinux.org/packages/python-tkfontchooser>`__
 
@@ -44,8 +44,61 @@ Installation
         $ pip install tkfontchooser
 
 
+Documentation
+-------------
+
+::
+
+    askfont(master=None, text="Abcd", title="Font Chooser", **font_args)
+
+Open the font chooser and return a dictionary of the font properties:
+
+::
+
+    {'family': str,
+     'size': int,
+     'weight': 'bold'/'normal',
+     'slant': 'italic'/'roman',
+     'underline': bool,
+     'overstrike': bool}
+
+General arguments
+~~~~~~~~~~~~~~~~~
+
+    master : Tk or Toplevel instance
+        parent window
+
+    text : str
+        sample text to be displayed in the font chooser
+
+    title : str
+        dialog title
+
+Font arguments
+~~~~~~~~~~~~~~
+
+    family : str
+        font family
+
+    size : int
+        font size
+
+    slant : str
+        "roman" or "italic"
+
+    weight : str
+        "normal" or "bold"
+
+    underline : bool
+        whether the text is underlined
+
+
+    overstrike : bool
+        whether the text is overstriked
+
+
 Example
-=======
+-------
 
 .. code:: python
 
@@ -111,3 +164,4 @@ Example
 .. |License| image:: https://img.shields.io/github/license/j4321/tkFontChooser.svg
     :target: https://www.gnu.org/licenses/gpl-3.0.en.html
     :alt: License
+

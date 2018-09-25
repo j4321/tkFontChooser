@@ -40,11 +40,14 @@ IT = {"Cancel": "Annulla", "Bold": "Grassetto", "Italic": "Corsivo",
       "Underline": "Sottolineato", "Overstrike": "Barrato"}
 LANGUAGES = {"fr": FR, "en": EN, "it": IT}
 
-if getdefaultlocale()[0][:2] == "fr":
-    TR = LANGUAGES["fr"]
-elif getdefaultlocale()[0][:2] == "it":
-    TR = LANGUAGES["it"]
-else:
+try:
+    if getdefaultlocale()[0][:2] == "fr":
+        TR = LANGUAGES["fr"]
+    elif getdefaultlocale()[0][:2] == "it":
+        TR = LANGUAGES["it"]
+    else:
+        TR = LANGUAGES["en"]
+except ValueError:
     TR = LANGUAGES["en"]
 
 
