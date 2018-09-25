@@ -6,7 +6,7 @@ Changelog
 ---------
 
 - tkfontchooser 2.0.2
-    * Add Italian translation (thanks to Maicol)
+    * Add Italian translation (thanks to `Maicol <https://github.com/maicol07>`_)
 
 - tkfontchooser 2.0.1
     * Fix bug when font size not in list (when navigating with up/down arrows)

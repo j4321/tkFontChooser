@@ -7,3 +7,4 @@ python-tkfontchooser
 htmlcov
 .coverage
 *.pyc
+_build
