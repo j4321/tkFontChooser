@@ -13,6 +13,10 @@ returns the chosen font when the user closes the font chooser. The font
 is returned as a dictionary like the one returned by the function
 ``tkFont.Font.actual``.
 
+The documentation is also available here: https://tkfontchooser.readthedocs.io
+
+.. contents:: Table of Contents
+
 Requirements
 ------------
 
