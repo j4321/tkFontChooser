@@ -30,7 +30,7 @@ is returned as a dictionary like the one returned by the function
 
 .. |Release| image:: https://badge.fury.io/py/tkfontchooser.svg
     :alt: Latest Release
-.. _Release:  https://pypi.org/project/tkfontchooser/
+    :target:  https://pypi.org/project/tkfontchooser/
 .. |Linux| image:: https://img.shields.io/badge/platform-Linux-blue.svg
     :alt: Platform
 .. |Windows| image:: https://img.shields.io/badge/platform-Windows-blue.svg
