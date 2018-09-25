@@ -20,7 +20,7 @@ Tests
 """
 
 import unittest
-from tkfontchooser import FontChooser
+from tkfontchooser import FontChooser, askfont
 try:
     import Tkinter as tk
     import ttk
@@ -140,3 +140,27 @@ class TestFontChooser(BaseWidgetTest):
 
         fc.keypress(TestEvent(char=fc.fonts[0][0]))
         self.assertEqual(fc.list_family.curselection()[0], 0)
+
+    def test_askfont(self):
+
+        def test(event):
+            event.widget.ok()
+            fontprops = event.widget.get_res()
+            self.assertEqual(fontprops['size'], 20)
+            self.assertEqual(fontprops['slant'], 'italic')
+            self.assertEqual(fontprops['weight'], 'bold')
+            self.assertTrue(fontprops['underline'])
+            self.assertTrue(fontprops['overstrike'])
+
+        def events():
+            self.window.update()
+            c = list(self.window.children.values())[0]
+            c.bind('<Visibility>', test)
+            self.window.update()
+            c.withdraw()
+            self.window.update()
+            c.deiconify()
+
+        self.window.after(100, events)
+        askfont(master=self.window, family='TkDefaultFont', size=20,
+                slant='italic', weight='bold', underline=True, overstrike=True)
