@@ -51,7 +51,9 @@ Documentation
 
     askfont(master=None, text="Abcd", title="Font Chooser", **font_args)
 
-Open the font chooser and return a dictionary of the font properties:
+Open the font chooser and return a dictionary of the font properties. This
+dictionary is similar to the one returned by the ``actual`` method of a tkinter
+``Font`` object.
 
 ::
 
@@ -91,7 +93,6 @@ Font arguments
 
     underline : bool
         whether the text is underlined
-
 
     overstrike : bool
         whether the text is overstriked

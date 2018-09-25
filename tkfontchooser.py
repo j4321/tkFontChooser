@@ -53,7 +53,7 @@ except ValueError:
 
 # --- FontChooser class
 class FontChooser(Toplevel):
-    """.Font chooser dialog."""
+    """Font chooser dialog."""
 
     def __init__(self, master, font_dict={}, text="Abcd", title="Font Chooser",
                  **kwargs):
@@ -458,7 +458,7 @@ class FontChooser(Toplevel):
 
 def askfont(master=None, text="Abcd", title="Font Chooser", **font_args):
     """
-    Open the font chooser and return the chosen font.
+    Open the font chooser and return the chosen font properties in a dict.
 
     Arguments:
         master: master window
