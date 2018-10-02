@@ -17,7 +17,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-
 try:
     from tkinter import Toplevel, Listbox, StringVar, BooleanVar, TclError
     from tkinter.ttk import Checkbutton, Frame, Label, Button, Scrollbar, Style, Entry
@@ -61,24 +60,30 @@ class FontChooser(Toplevel):
         Create a new FontChooser instance.
 
         Arguments:
-            master: master window
 
-            font_dict: dictionnary, like the one returned by the .actual
-                       method of a Font object:
+            master : Tk or Toplevel instance
+                master window
 
-                        {'family': 'DejaVu Sans',
-                         'overstrike': False,
-                         'size': 12,
-                         'slant': 'italic' or 'roman',
-                         'underline': False,
-                         'weight': 'bold' or 'normal'}
+            font_dict : dict
+                dictionnary, like the one returned by the ``actual`` method of a ``Font`` object:
 
-            text: text to be displayed in the preview label
+                ::
 
-            title: window title
+                    {'family': str,
+                     'size': int,
+                     'weight': 'bold'/'normal',
+                     'slant': 'italic'/'roman',
+                     'underline': bool,
+                     'overstrike': bool}
 
-            **kwargs: additional keyword arguments to be passed to
-                      Toplevel.__init__
+            text : str
+                text to be displayed in the preview label
+
+            title : str
+                window title
+
+            kwargs : dict
+                additional keyword arguments to be passed to ``Toplevel.__init__``
         """
         Toplevel.__init__(self, master, **kwargs)
         self.title(title)
@@ -458,14 +463,52 @@ class FontChooser(Toplevel):
 
 def askfont(master=None, text="Abcd", title="Font Chooser", **font_args):
     """
-    Open the font chooser and return the chosen font properties in a dict.
+    Open the font chooser and return a dictionary of the font properties.
 
-    Arguments:
-        master: master window
-        text: sample text to be displayed in the font chooser
-        title: dialog title
-        font_args: family, size, slant (=roman/italic),
-                   weight (=normal/bold), underline (bool), overstrike (bool)
+    General Arguments:
+
+        master : Tk or Toplevel instance
+            master window
+
+        text : str
+            sample text to be displayed in the font chooser
+
+        title : str
+            dialog title
+
+    Font arguments:
+
+        family : str
+            font family
+
+        size : int
+            font size
+
+        slant : str
+            "roman" or "italic"
+
+        weight : str
+            "normal" or "bold"
+
+        underline : bool
+            whether the text is underlined
+
+        overstrike : bool
+            whether the text is overstriked
+
+    Output:
+
+        dictionary is similar to the one returned by the ``actual`` method of a tkinter ``Font`` object:
+
+        ::
+
+            {'family': str,
+             'size': int,
+             'weight': 'bold'/'normal',
+             'slant': 'italic'/'roman',
+             'underline': bool,
+             'overstrike': bool}
+
     """
     chooser = FontChooser(master, font_args, text, title)
     chooser.wait_window(chooser)

@@ -38,7 +38,7 @@ Installation
 
 - Archlinux:
 
-    the package is available on `AUR <https://aur.archlinux.org/packages/python-tkfontchooser>`__
+    the package is available in `AUR <https://aur.archlinux.org/packages/python-tkfontchooser>`__
 
 
 - With pip:

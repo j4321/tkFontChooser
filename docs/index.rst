@@ -23,8 +23,8 @@ is returned as a dictionary like the one returned by the function
    :caption: Contents:
 
    installation
-   example
    documentation
+   example
    changelog
 
 
