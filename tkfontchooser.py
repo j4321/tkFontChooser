@@ -60,13 +60,13 @@ class FontChooser(Toplevel):
         Create a new FontChooser instance.
 
         Arguments:
-        
+
             master : Tk or Toplevel instance
                 master window
 
             font_dict : dict
-                dictionnary, like the one returned by the .actual method of a Font object:
-                
+                dictionnary, like the one returned by the ``actual`` method of a ``Font`` object:
+
                 ::
 
                     {'family': str,
@@ -475,7 +475,7 @@ def askfont(master=None, text="Abcd", title="Font Chooser", **font_args):
 
         title : str
             dialog title
-            
+
     Font arguments:
 
         family : str
@@ -495,11 +495,11 @@ def askfont(master=None, text="Abcd", title="Font Chooser", **font_args):
 
         overstrike : bool
             whether the text is overstriked
-            
+
     Output:
-    
+
         dictionary is similar to the one returned by the ``actual`` method of a tkinter ``Font`` object:
-        
+
         ::
 
             {'family': str,
@@ -508,7 +508,7 @@ def askfont(master=None, text="Abcd", title="Font Chooser", **font_args):
              'slant': 'italic'/'roman',
              'underline': bool,
              'overstrike': bool}
-        
+
     """
     chooser = FontChooser(master, font_args, text, title)
     chooser.wait_window(chooser)
