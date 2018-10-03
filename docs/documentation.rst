@@ -9,9 +9,10 @@ askfont
 FontChooser
 -----------
 
-.. autoclass:: tkfontchooser.FontChooser
-    :members: 
+``FontChooser`` inherits from all ``Toplevel`` methods.
 
-    .. automethod:: __init__
+.. autoclass:: tkfontchooser.FontChooser
+    :members: get_res, __init__, ok, quit
+
     
 
