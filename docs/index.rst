@@ -26,6 +26,7 @@ is returned as a dictionary like the one returned by the function
    documentation
    example
    changelog
+   genindex
 
 
 .. |Release| image:: https://badge.fury.io/py/tkfontchooser.svg
