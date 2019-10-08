@@ -5,6 +5,9 @@ Copyright 2016-2018 Juliette Monsel <j_4321@protonmail.com>
 Changelog
 ---------
 
+- tkfontchooser 2.0.3
+    * Add Russian translation (thanks to `Goriy <https://github.com/goriy>`_)
+
 - tkfontchooser 2.0.2
     * Add Italian translation (thanks to `Maicol <https://github.com/maicol07>`_)
 
