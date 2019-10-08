@@ -37,15 +37,17 @@ FR = {"Cancel": "Annuler", "Bold": "Gras", "Italic": "Italique",
       "Underline": "Souligné", "Overstrike": "Barré"}
 IT = {"Cancel": "Annulla", "Bold": "Grassetto", "Italic": "Corsivo",
       "Underline": "Sottolineato", "Overstrike": "Barrato"}
-LANGUAGES = {"fr": FR, "en": EN, "it": IT}
+RU = {"Cancel": "Отмена", "Bold": "Полужирный", "Italic": "Курсив",
+      "Underline": "Подчеркнутый", "Overstrike": "Зачеркнутый"}
+LANGUAGES = {"fr": FR, "en": EN, "it": IT, "ru": RU}
 
 try:
-    if getdefaultlocale()[0][:2] == "fr":
-        TR = LANGUAGES["fr"]
-    elif getdefaultlocale()[0][:2] == "it":
-        TR = LANGUAGES["it"]
+    lang_code = getdefaultlocale()[0][:2]
+    if lang_code in LANGUAGES:
+        TR = LANGUAGES[lang_code]
     else:
         TR = LANGUAGES["en"]
+
 except ValueError:
     TR = LANGUAGES["en"]
 
